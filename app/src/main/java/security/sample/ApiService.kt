@@ -2,6 +2,7 @@ package security.sample
 
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
 import security.sample.data.ItemListResponse
 import security.sample.data.LoginResponse
 import security.sample.data.PayResponse
@@ -10,11 +11,17 @@ import security.sample.data.PayResponse
 interface ApiService {
 
     @GET("login")
-    fun login(apiKey: String): Call<LoginResponse>
+    fun login(@Query("apiKey") apiKey: String): Call<LoginResponse>
 
     @GET("item")
-    fun getItemList(): Call<ItemListResponse>
+    fun getItemList(
+        @Query("apiKey") apiKey: String,
+        @Query("token") token: String
+    ): Call<ItemListResponse>
 
     @GET("pay")
-    fun pay(): Call<PayResponse>
+    fun pay(
+        @Query("apiKey") apiKey: String,
+        @Query("token") token: String
+    ): Call<PayResponse>
 }
