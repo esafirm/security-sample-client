@@ -1,8 +1,10 @@
 package security.sample
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
+import security.sample.itemlist.ItemListActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -11,7 +13,10 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         btn_login.setOnClickListener {
-            ApiCaller.login()
+            ApiCaller.login {
+                finish()
+                startActivity(Intent(this, ItemListActivity::class.java))
+            }
         }
     }
 }
