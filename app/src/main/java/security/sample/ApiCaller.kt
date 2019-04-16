@@ -32,12 +32,14 @@ object ApiCaller {
         retrofit.create(ApiService::class.java)
     }
 
-    fun login(onSuccess: () -> Unit) {
+    fun login(onResponse: (Boolean) -> Unit) {
         service.login("").enqueue(object : Callback<LoginResponse> {
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                onResponse(false)
             }
 
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                onResponse(true)
             }
         })
     }

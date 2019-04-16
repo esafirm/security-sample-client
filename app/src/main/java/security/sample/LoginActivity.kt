@@ -23,11 +23,12 @@ class LoginActivity : AppCompatActivity() {
             }
             progressDialog.show()
 
-            ApiCaller.login {
+            ApiCaller.login { isSuccess ->
                 progressDialog.dismiss()
-
-                finish()
-                startActivity(Intent(this, ItemListActivity::class.java))
+                if (isSuccess) {
+                    finish()
+                    startActivity(Intent(this, ItemListActivity::class.java))
+                }
             }
         }
     }
