@@ -1,5 +1,6 @@
 package security.sample
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -12,8 +13,19 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        supportActionBar?.hide()
+
         btn_login.setOnClickListener {
+
+            val progressDialog = ProgressDialog(this).apply {
+                setMessage("Please wait...")
+                setCancelable(false)
+            }
+            progressDialog.show()
+
             ApiCaller.login {
+                progressDialog.dismiss()
+
                 finish()
                 startActivity(Intent(this, ItemListActivity::class.java))
             }

@@ -7,13 +7,26 @@ import retrofit2.Retrofit
 import security.sample.data.Item
 import security.sample.data.ItemListResponse
 import security.sample.data.LoginResponse
-
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiCaller {
 
     private val service by lazy {
+        val logging = HttpLoggingInterceptor { message ->
+            // TODO implement our own logger
+        }
+        logging.level = HttpLoggingInterceptor.Level.BASIC
+
+        val client = OkHttpClient.Builder()
+            .addInterceptor(logging)
+            .build()
+
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("https://dago.netlify.com/.netlify/functions/")
             .build()
 
         retrofit.create(ApiService::class.java)
