@@ -14,6 +14,8 @@ import security.sample.data.PayResponse
 
 object ApiCaller {
 
+    private const val API_KEY = "12345"
+
     private val service by lazy {
         val logging = HttpLoggingInterceptor { message ->
             // TODO implement our own logger
@@ -34,7 +36,7 @@ object ApiCaller {
     }
 
     fun login(onResponse: (Boolean) -> Unit) {
-        service.login("").enqueue(object : Callback<LoginResponse> {
+        service.login(API_KEY).enqueue(object : Callback<LoginResponse> {
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 onResponse(false)
             }
@@ -46,7 +48,7 @@ object ApiCaller {
     }
 
     fun getItem(onResponse: (List<Item>) -> Unit) {
-        service.getItemList("", "").enqueue(object : Callback<ItemListResponse> {
+        service.getItemList(API_KEY, "xxxxx").enqueue(object : Callback<ItemListResponse> {
             override fun onFailure(call: Call<ItemListResponse>, t: Throwable) {
                 onResponse(emptyList())
             }
@@ -58,7 +60,7 @@ object ApiCaller {
     }
 
     fun pay(onResponse: (Boolean) -> Unit) {
-        service.pay("", "").enqueue(object : Callback<PayResponse> {
+        service.pay(API_KEY, "xxxxx").enqueue(object : Callback<PayResponse> {
             override fun onFailure(call: Call<PayResponse>, t: Throwable) {
                 onResponse(false)
             }

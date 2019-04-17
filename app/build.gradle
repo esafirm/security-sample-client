@@ -47,6 +47,7 @@ dependencies {
 
     // App Monitor
     implementation 'com.facebook.stetho:stetho:1.5.1'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
 
     // Safe Storage
     implementation "com.orhanobut:hawk:2.0.1"
