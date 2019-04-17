@@ -18,7 +18,9 @@ class ItemListActivity : AppCompatActivity() {
 
         // Set RecyclerView adapter
         val adapter = ItemListAdapter {
-            startActivity(Intent(this, PayActivity::class.java))
+            startActivity(Intent(this, PayActivity::class.java).apply {
+                putExtra("item", it)
+            })
         }
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
