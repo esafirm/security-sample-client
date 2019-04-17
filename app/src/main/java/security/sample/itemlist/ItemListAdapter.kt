@@ -28,7 +28,7 @@ class ItemListAdapter(
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, p1: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(viewGroup.context)
-        return ItemViewHolder(inflater.inflate(R.layout.item, viewGroup))
+        return ItemViewHolder(inflater.inflate(R.layout.item, viewGroup, false))
     }
 
     override fun getItemCount(): Int = items.size

@@ -13,7 +13,7 @@ interface ApiService {
     @GET("login")
     fun login(@Query("apiKey") apiKey: String): Call<LoginResponse>
 
-    @GET("item")
+    @GET("items")
     fun getItemList(
         @Query("apiKey") apiKey: String,
         @Query("token") token: String

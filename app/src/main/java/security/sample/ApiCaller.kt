@@ -1,5 +1,6 @@
 package security.sample
 
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,14 +24,15 @@ object ApiCaller {
         logging.level = HttpLoggingInterceptor.Level.BASIC
 
         val client = OkHttpClient.Builder()
-                .addInterceptor(logging)
-                .build()
+            .addInterceptor(logging)
+            .addNetworkInterceptor(StethoInterceptor())
+            .build()
 
         val retrofit = Retrofit.Builder()
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("https://dago.netlify.com/.netlify/functions/")
-                .build()
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("https://dago.netlify.com/.netlify/functions/")
+            .build()
 
         retrofit.create(ApiService::class.java)
     }

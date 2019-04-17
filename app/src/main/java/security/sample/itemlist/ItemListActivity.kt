@@ -25,7 +25,7 @@ class ItemListActivity : AppCompatActivity() {
 
         // Call the API
         ApiCaller.getItem {
-            progressBar.visibility = View.VISIBLE
+            progressBar.visibility = View.GONE
             adapter.setData(it)
         }
     }
