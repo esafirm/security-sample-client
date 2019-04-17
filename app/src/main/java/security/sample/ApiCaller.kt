@@ -10,6 +10,7 @@ import security.sample.data.LoginResponse
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.converter.gson.GsonConverterFactory
+import security.sample.data.PayResponse
 
 object ApiCaller {
 
@@ -20,14 +21,14 @@ object ApiCaller {
         logging.level = HttpLoggingInterceptor.Level.BASIC
 
         val client = OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .build()
+                .addInterceptor(logging)
+                .build()
 
         val retrofit = Retrofit.Builder()
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://dago.netlify.com/.netlify/functions/")
-            .build()
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .baseUrl("https://dago.netlify.com/.netlify/functions/")
+                .build()
 
         retrofit.create(ApiService::class.java)
     }
@@ -44,12 +45,26 @@ object ApiCaller {
         })
     }
 
-    fun getItem(onSuccess: (List<Item>) -> Unit) {
+    fun getItem(onResponse: (List<Item>) -> Unit) {
         service.getItemList("", "").enqueue(object : Callback<ItemListResponse> {
             override fun onFailure(call: Call<ItemListResponse>, t: Throwable) {
+                onResponse(emptyList())
             }
 
             override fun onResponse(call: Call<ItemListResponse>, response: Response<ItemListResponse>) {
+                onResponse(response.body()?.items ?: emptyList())
+            }
+        })
+    }
+
+    fun pay(onResponse: (Boolean) -> Unit) {
+        service.pay("", "").enqueue(object : Callback<PayResponse> {
+            override fun onFailure(call: Call<PayResponse>, t: Throwable) {
+                onResponse(false)
+            }
+
+            override fun onResponse(call: Call<PayResponse>, response: Response<PayResponse>) {
+                onResponse(true)
             }
         })
     }
