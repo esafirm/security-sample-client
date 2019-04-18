@@ -13,6 +13,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.converter.gson.GsonConverterFactory
 import security.sample.data.PayResponse
+import timber.log.Timber
 
 object ApiCaller {
 
@@ -28,7 +29,7 @@ object ApiCaller {
 
     private val service by lazy {
         val logging = HttpLoggingInterceptor { message ->
-            // TODO implement our own logger
+            Timber.d(message)
         }
         logging.level = HttpLoggingInterceptor.Level.BASIC
 
