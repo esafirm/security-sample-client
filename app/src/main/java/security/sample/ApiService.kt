@@ -22,6 +22,7 @@ interface ApiService {
     @GET("pay")
     fun pay(
         @Query("apiKey") apiKey: String,
-        @Query("token") token: String
+        @Query("token") token: String,
+        @Query("itemId") itemId: String
     ): Call<PayResponse>
 }

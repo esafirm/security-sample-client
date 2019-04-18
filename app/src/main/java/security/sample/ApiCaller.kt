@@ -61,8 +61,8 @@ object ApiCaller {
         })
     }
 
-    fun pay(onResponse: (Boolean) -> Unit) {
-        service.pay(API_KEY, "xxxxx").enqueue(object : Callback<PayResponse> {
+    fun pay(itemId: String, onResponse: (Boolean) -> Unit) {
+        service.pay(API_KEY, "xxxxx", itemId).enqueue(object : Callback<PayResponse> {
             override fun onFailure(call: Call<PayResponse>, t: Throwable) {
                 onResponse(false)
             }

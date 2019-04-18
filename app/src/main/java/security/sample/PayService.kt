@@ -16,12 +16,7 @@ class PayService : Service() {
     }
 
     private fun pay(item: Item?) {
-        if (item == null) {
-            // Do broadcast error
-            return
-        }
-
-        ApiCaller.pay {
+        ApiCaller.pay(item?.id?.toString() ?: "") {
             broadcastReturn(it)
         }
     }
