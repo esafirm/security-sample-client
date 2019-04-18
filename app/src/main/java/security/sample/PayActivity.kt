@@ -8,6 +8,7 @@ import android.content.IntentFilter
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_pay.*
 import security.sample.data.Item
 
@@ -22,8 +23,13 @@ class PayActivity : AppCompatActivity() {
     private val receiver by lazy {
         object : BroadcastReceiver() {
             override fun onReceive(context: Context?, intent: Intent?) {
-                progressDialog.dismiss()
-                finish()
+                val isSuccess = intent?.getBooleanExtra("success", false) ?: false
+                if (isSuccess) {
+                    progressDialog.dismiss()
+                    finish()
+                } else {
+                    Toast.makeText(application, "Payment failed", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

@@ -16,7 +16,11 @@ class PayService : Service() {
     }
 
     private fun pay(item: Item?) {
-        ApiCaller.pay(item?.id?.toString() ?: "") {
+        if (item == null) {
+            broadcastReturn(false)
+            return
+        }
+        ApiCaller.pay(item.id.toString()) {
             broadcastReturn(it)
         }
     }
