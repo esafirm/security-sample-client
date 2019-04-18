@@ -57,7 +57,4 @@ dependencies {
 
     // Root check
     implementation 'com.scottyab:rootbeer-lib:0.0.7'
-
-    // Hide private keys
-    implementation 'com.saantiaguilera.securekeys:core:2.2.0'
 }
