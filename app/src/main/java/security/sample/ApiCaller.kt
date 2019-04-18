@@ -15,7 +15,7 @@ import security.sample.data.PayResponse
 
 object ApiCaller {
 
-    private const val API_KEY = "12345"
+    private const val API_KEY = ""
 
     private val service by lazy {
         val logging = HttpLoggingInterceptor { message ->

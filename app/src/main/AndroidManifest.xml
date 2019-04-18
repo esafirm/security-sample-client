@@ -5,7 +5,6 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-            android:name=".SampleApp"
             android:allowBackup="true"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name"
@@ -26,7 +25,7 @@
         <!-- Service -->
         <!-- ============================================= -->
 
-        <service android:name=".PayService"/>
+        <service android:name=".PayService" android:exported="true"/>
 
     </application>
 
