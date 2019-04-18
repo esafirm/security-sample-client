@@ -4,6 +4,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.os.IBinder
+import com.scottyab.rootbeer.RootBeer
 import security.sample.data.Item
 
 class PayService : Service() {
@@ -20,6 +21,13 @@ class PayService : Service() {
             broadcastReturn(false)
             return
         }
+
+        val rootBear = RootBeer(applicationContext)
+        if (rootBear.isRooted) {
+            broadcastReturn(false)
+            return
+        }
+
         ApiCaller.pay(item.id.toString()) {
             broadcastReturn(it)
         }
