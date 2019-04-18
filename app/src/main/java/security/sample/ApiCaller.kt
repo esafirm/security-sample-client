@@ -1,5 +1,6 @@
 package security.sample
 
+import android.util.Base64
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,7 +16,15 @@ import security.sample.data.PayResponse
 
 object ApiCaller {
 
-    private const val API_KEY = ""
+    init {
+        System.loadLibrary("keys")
+    }
+
+    private val API_KEY by lazy {
+        String(Base64.decode(getNativeKey(), Base64.DEFAULT))
+    }
+
+    external fun getNativeKey(): String
 
     private val service by lazy {
         val logging = HttpLoggingInterceptor { message ->

@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 androidExtensions {
     experimental true
@@ -15,7 +16,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -27,6 +27,12 @@ android {
     compileOptions {
         sourceCompatibility '1.8'
         targetCompatibility '1.8'
+    }
+
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/jni/Android.mk'
+        }
     }
 }
 
@@ -58,3 +64,4 @@ dependencies {
     // Root check
     implementation 'com.scottyab:rootbeer-lib:0.0.7'
 }
+
