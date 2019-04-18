@@ -25,6 +25,10 @@ object ApiCaller {
         String(Base64.decode(getNativeKey(), Base64.DEFAULT))
     }
 
+    private val token by lazy {
+        Store.getToken()
+    }
+
     external fun getNativeKey(): String
 
     private val service by lazy {
@@ -54,13 +58,19 @@ object ApiCaller {
             }
 
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
-                onResponse(true)
+                val token = response.body()?.token
+                if (token != null) {
+                    Store.saveToken(token)
+                    onResponse(true)
+                } else {
+                    onResponse(false)
+                }
             }
         })
     }
 
     fun getItem(onResponse: (List<Item>) -> Unit) {
-        service.getItemList(API_KEY, "xxxxx").enqueue(object : Callback<ItemListResponse> {
+        service.getItemList(API_KEY, token).enqueue(object : Callback<ItemListResponse> {
             override fun onFailure(call: Call<ItemListResponse>, t: Throwable) {
                 onResponse(emptyList())
             }
@@ -72,7 +82,7 @@ object ApiCaller {
     }
 
     fun pay(itemId: String, onResponse: (Boolean) -> Unit) {
-        service.pay(API_KEY, "xxxxx", itemId).enqueue(object : Callback<PayResponse> {
+        service.pay(API_KEY, token, itemId).enqueue(object : Callback<PayResponse> {
             override fun onFailure(call: Call<PayResponse>, t: Throwable) {
                 onResponse(false)
             }

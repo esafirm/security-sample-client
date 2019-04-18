@@ -2,6 +2,7 @@ package security.sample
 
 import android.app.Application
 import com.facebook.stetho.Stetho
+import com.orhanobut.hawk.Hawk
 import timber.log.Timber
 
 class SampleApp : Application() {
@@ -9,5 +10,7 @@ class SampleApp : Application() {
         super.onCreate()
         Stetho.initializeWithDefaults(this)
         Timber.plant(Timber.DebugTree())
+
+        Hawk.init(this).build()
     }
 }
