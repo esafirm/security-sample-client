@@ -25,11 +25,11 @@ class PayActivity : AppCompatActivity() {
             override fun onReceive(context: Context?, intent: Intent?) {
                 val isSuccess = intent?.getBooleanExtra("success", false) ?: false
                 if (isSuccess) {
-                    progressDialog.dismiss()
                     finish()
                 } else {
                     Toast.makeText(application, "Payment failed", Toast.LENGTH_SHORT).show()
                 }
+                progressDialog.dismiss()
             }
         }
     }
