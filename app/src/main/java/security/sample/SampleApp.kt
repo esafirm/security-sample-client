@@ -9,7 +9,10 @@ class SampleApp : Application() {
     override fun onCreate() {
         super.onCreate()
         Stetho.initializeWithDefaults(this)
-        Timber.plant(Timber.DebugTree())
+
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
 
         Hawk.init(this).build()
     }
