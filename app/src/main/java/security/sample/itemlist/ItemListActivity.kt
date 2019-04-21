@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.activity_list.*
 import security.sample.ApiCaller
 import security.sample.PayActivity
 import security.sample.R
+import security.sample.data.Item
 
 class ItemListActivity : AppCompatActivity() {
 
@@ -16,12 +17,17 @@ class ItemListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
 
-        // Set RecyclerView adapter
-        val adapter = ItemListAdapter {
-            startActivity(Intent(this, PayActivity::class.java).apply {
-                putExtra("item", it)
-            })
+        // Define OnItemClick listener
+        val onClick = { item: Item ->
+            val intent = Intent(this, PayActivity::class.java)
+            intent.putExtra("item", item)
+            startActivity(intent)
         }
+
+        // Set RecyclerView adapter
+        val adapter = ItemListAdapter(onClick)
+
+        // Set LayoutManager and Adapter to RecyclerView
         recycler.layoutManager = LinearLayoutManager(this)
         recycler.adapter = adapter
 

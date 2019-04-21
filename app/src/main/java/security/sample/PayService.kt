@@ -29,13 +29,11 @@ class PayService : Service() {
 
         const val PAY_ACTION = "PayService.PayAction"
 
+        // Menjalankan PayService dengan mengirimkan Item yang sudah dipilih
         fun start(context: Context, item: Item) {
-            context.startService(
-                Intent(
-                    context,
-                    PayService::class.java
-                ).putExtra("item", item)
-            )
+            val intent = Intent(context, PayService::class.java)
+            intent.putExtra("item", item)
+            context.startService(intent)
         }
     }
 }

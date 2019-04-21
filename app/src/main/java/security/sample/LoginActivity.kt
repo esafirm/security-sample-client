@@ -17,14 +17,20 @@ class LoginActivity : AppCompatActivity() {
 
         btn_login.setOnClickListener {
 
+            // Menampilkan ProgressDialog
             val progressDialog = ProgressDialog(this).apply {
                 setMessage("Please wait...")
                 setCancelable(false)
             }
             progressDialog.show()
 
+            // Call login API
             ApiCaller.login { isSuccess ->
+
+                // Menghilangkan ProgressDialog
                 progressDialog.dismiss()
+
+                // Jika suskes, navigasi ke ItemListActivity
                 if (isSuccess) {
                     finish()
                     startActivity(Intent(this, ItemListActivity::class.java))

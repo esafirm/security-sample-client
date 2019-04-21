@@ -58,6 +58,7 @@ class PayActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        // Kill the Activity when toolbar back pressed
         finish()
         return super.onOptionsItemSelected(item)
     }
